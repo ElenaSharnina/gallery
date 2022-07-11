@@ -1,6 +1,22 @@
 import { createElem } from "./createElem.js";
 
-export const createCard = (data) => {
+const loadImg = (url, description) => {
+
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.width = '200';
+    img.src = url;
+    img.alt = description;
+    img.addEventListener('load', () => {
+      resolve(img);
+    });
+    img.addEventListener('error', (err) => {
+      reject(new Error(err))
+    })
+  });
+}
+
+export const createCard = async (data) => {
 
   const card = createElem('li', {
     className: 'card',
@@ -13,10 +29,9 @@ export const createCard = (data) => {
   });
 
 
-  const photo = new Image();
-  photo.width = '200';
-  photo.src = data.urls.small;
-  photo.alt = data.alt_description;
+  const photo = await loadImg(data.urls.small, data.alt_description);
+
+
 
   const author = createElem('a', {
     className: 'card__author',
