@@ -1,8 +1,56 @@
+import { createElem } from "./createElem.js";
+
 export const renderPhoto = (photoWrapper, photo) => {
+  const img = createElem("img", {
+    className: "photo__picture",
+    src: photo.urls.regular,
+    alt: photo.description,
+    style: "max-height: 80vh",
+  });
 
-}
+  const author = createElem("a", {
+    className: "photo__author",
+    href: photo.user.links.html,
+  });
 
-{/* <img
+  const avatarAuthor = createElem('img', {
+    src: photo.user.profile_image.medium,
+    alt: photo.user.bio,
+    title: photo.user.name,
+  });
+
+  const userName = createElem('span', {
+    textContent: photo.user.userName,
+  });
+
+  const photoControl = createElem('div', {
+    className: 'photo__control',
+  });
+
+  const photoLike = createElem('button', {
+    className: 'photo__like',
+    id: photo.id,
+    textContent: photo.likes,
+  });
+
+  if (!photoLike.likeByUser) {
+    photoLike.classList.add('photo__like_o')
+  }
+
+  const photoDownload = createElem('a', {
+    className: 'photo__download',
+    download: true,
+    href: photo.links.download,
+    target: '_blank',
+  });
+
+  author.append(avatarAuthor, userName);
+  photoControl.append(photoLike, photoDownload);
+  photoWrapper.append(img, author, photoControl);
+};
+
+{
+  /* <img
             class="photo__picture"
             src="https://images.unsplash.com/photo-1654363137357-9d897b5a20d7?crop=entropy&amp;cs=tinysrgb&amp;fm=jpg&amp;ixid=MnwzMDE0MzF8MHwxfGFsbHx8fHx8fHx8fDE2NTQ1MjMzNjE&amp;ixlib=rb-1.2.1&amp;q=80"
             alt="null"
@@ -22,4 +70,5 @@ export const renderPhoto = (photoWrapper, photo) => {
               download="true"
               href="https://unsplash.com/photos/JIqH1ps4eK8/download?ixid=MnwzMDE0MzF8MHwxfGFsbHx8fHx8fHx8fDE2NTQ1MjMzNjE"
               target="_blank"
-            ></a> */}
+            ></a> */
+}
