@@ -20,7 +20,7 @@ export const renderPhoto = (photoWrapper, photo) => {
   });
 
   const userName = createElem('span', {
-    textContent: photo.user.userName,
+    textContent: photo.user.username,
   });
 
   const photoControl = createElem('div', {
@@ -31,6 +31,7 @@ export const renderPhoto = (photoWrapper, photo) => {
     className: 'photo__like',
     id: photo.id,
     textContent: photo.likes,
+    likeByUser: photo.liked_by_user,
   });
 
   if (!photoLike.likeByUser) {
@@ -47,6 +48,8 @@ export const renderPhoto = (photoWrapper, photo) => {
   author.append(avatarAuthor, userName);
   photoControl.append(photoLike, photoDownload);
   photoWrapper.append(img, author, photoControl);
+
+  return photoLike;
 };
 
 {
